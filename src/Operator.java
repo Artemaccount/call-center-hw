@@ -15,17 +15,17 @@ public class Operator extends Thread {
     @Override
     public void run() {
         int solvingProblemTime = new Random().nextInt(MAX_SOLVING_TIME) + MIN_SOLVING_TIME;
-        while (resolvedCount < PhoneStation.maxCallCount) {
+        while (resolvedCount < PhoneStation.getMaxCallCount()) {
             try {
                 Thread.sleep(solvingProblemTime);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            if (!phoneStation.callQueue.isEmpty()) {
+            if (!phoneStation.getCallQueue().isEmpty()) {
                 resolvedCount++;
                 System.out.println(Thread.currentThread().getName() +
-                        " обрабатывает " + phoneStation.callQueue.poll());
-                System.out.println("---На очереди: " + phoneStation.callQueue.size() + " обращений---");
+                        " обрабатывает " + phoneStation.queuePoll());
+                System.out.println("---На очереди: " + phoneStation.getCallQueue().size() + " обращений---");
             }
             try {
                 Thread.sleep(WAITING_FOR_NEW_CALL);
